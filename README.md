@@ -27,7 +27,7 @@ public function transaction(Closure $callback, $attempts = 1)
 
 ワイ「英語読めへんから，DeepL 先生に聞いてみよか！」
 
-ワイこのままコピペしてっと．．．
+ワイ「このままコピペしてっと．．．」
 
 ![readme-1](https://user-images.githubusercontent.com/52437973/229556886-f797d4bf-ead1-4b89-bc8a-a9d31646cbd5.png)
 
