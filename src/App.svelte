@@ -16,7 +16,7 @@
 		"double-slash": (s) => s.replace(/^\s*\/\/\s*/, ''),
 		"slash-asterisk": (s) => s.replace(/^\s*(\/\*\*|\/\*|\*\/|\*\*\/|\*)\s*/, ''),
 		"hash": (s) => s.replace(/^\s*#\s*/, ''),
-		"empty": (s) => s.replace(/^\s+/, ''),
+		"empty": (s) => s.replace(/^\s+/g, ''),
 	};
 
 	// クリア
