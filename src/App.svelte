@@ -14,7 +14,7 @@
 	// 変換タイプ毎の変換ロジック
 	const converters = {
 		"double-slash": (s) => s.replace(/^\s*\/\/\s*/, ''),
-		"slash-asterisk": (s) => s.replace(/^\s*(\/\*\*|\/\*|\*\/|\*\*\/|\*)\s*/, ''),
+		"slash-asterisk": (s) => s.replace(/^\s*(\/\*\*|\/\*|\*\/|\*\*\/|\*)\s*/, '').replace(/\s*\*\/\s*$/, ''),
 		"hash": (s) => s.replace(/^\s*#\s*/, ''),
 		"empty": (s) => s.replace(/^\s+/g, ''),
 	};
