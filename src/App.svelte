@@ -1,19 +1,23 @@
 <script>
+	// 変換タイプ
 	let type = "double-slash";
 
+	// 変換前の文字列
 	let before = "";
+
+	// 変換後の文字列
 	$: after = before
 		.split("\n") // 改行で文章を分割
 		.map((s) => converters[type](s)) // 各行の先頭が空白や 「//」 が含まれていたら削除
 		.reduce((joined, current) => joined.slice(-1) == '.' ? `${joined}\n${current}` : `${joined} ${current}`);
 
+	// 変換タイプ毎の変換ロジック
 	const converters = {
 		"double-slash": (s) => s.replace(/^\s*\/\/\s*/, ''),
 		"slash-asterisk": (s) => s.replace(/^\s*(\/\*\*|\/\*|\*\/|\*\*\/|\*)\s*/, ''),
 		"hash": (s) => s.replace(/^\s*#\s*/, ''),
 		"empty": (s) => s.replace(/^\s+/, ''),
 	};
-
 
 	// クリア
 	const clear = () => { before = ""; };
