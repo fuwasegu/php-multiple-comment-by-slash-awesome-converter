@@ -46,3 +46,8 @@ public function transaction(Closure $callback, $attempts = 1)
 ワイ「わーい！一瞬で整形されたで！」
 
 ワイ「あとはクリップボードにコピーして，DeepL に貼り付けるだけや〜！」
+
+# リリースノート
+
+### 2023.04.04 複数種類のコメントタイプに対応しました
+![FszdiFeagAIsZ9c](https://user-images.githubusercontent.com/52437973/229575624-094e0075-5a4d-4842-919c-08d932cf7fd3.jpg)
