@@ -1,26 +1,55 @@
 <script>
+	let type = "double-slash";
+
 	let before = "";
 	$: after = before
 		.split("\n") // 改行で文章を分割
-		.map((s) => s.replace(/^\s*\/\/\s*/, '')) // 各行の先頭が空白や 「//」 が含まれていたら削除
+		.map((s) => converters[type](s)) // 各行の先頭が空白や 「//」 が含まれていたら削除
 		.reduce((joined, current) => joined.slice(-1) == '.' ? `${joined}\n${current}` : `${joined} ${current}`);
 
-	const clear = () => {
-		before = "";
-	}
+	const converters = {
+		"double-slash": (s) => s.replace(/^\s*\/\/\s*/, ''),
+		"slash-asterisk": (s) => s.replace(/^\s*(\/\*\*|\/\*|\*\/|\*\*\/|\*)\s*/, ''),
+		"hash": (s) => s.replace(/^\s*#\s*/, ''),
+		"empty": (s) => s.replace(/^\s+/, ''),
+	};
 
+
+	// クリア
+	const clear = () => { before = ""; };
+
+	// クリップボードにコピー
 	const copyToClipboard = async () => setTimeout(() => navigator.clipboard.writeText(after), 100);
 </script>
 
 <main>
-	<h1>PHP のスラッシュで書かれた複数行コメントを<br/>いい感じに整形して翻訳しやすくするやつ</h1>
+	<h1>複数行コメントをいい感じに整形して<br/>翻訳しやすくするやつ</h1>
 	<div style="margin-bottom: 40px;">
 		<small style="display: block;">
-			「//」で始まる複数行のコメントから，各行の先頭の 「//」 を除去します．
+			「/*」や 「//」などで書かれた複数行コメントをただの文章に変換します．
 		</small>
 		<small style="display: block;">
-			また，文章がまだ続いている可能性が高い改行も削除します．
+			これにより, DeepL などの翻訳へのコピペが楽になります．
 		</small>
+	</div>
+
+	<div style="text-align: start; width: fit-content; margin: auto; margin-bottom: 40px; ">
+		<label>
+			<input type="radio" bind:group={type} name="comment-type" value={"double-slash"}>
+			「//」ではじまるもの
+		</label>
+		<label>
+			<input type="radio" bind:group={type} name="comment-type" value={"hash"}>
+			「#」ではじまるもの
+		</label>
+		<label>
+			<input type="radio" bind:group={type} name="comment-type" value={"slash-asterisk"}>
+			「/*」や「/**」ではじまり，「*/」や「**/」で終わるもの
+		</label>
+		<label>
+			<input type="radio" bind:group={type} name="comment-type" value={"empty"}>
+			各行先頭が空白
+		</label>
 	</div>
 
 	<div class="app-area">
